@@ -1,0 +1,35 @@
+img {
+	max-width: 100%;
+}
+
+html, body {
+	/* Para fazer o rodapé ficar sempre na parte inferior da página ;) */
+	min-height: 100vh;
+}
+
+.limitador {
+	max-width: 1200px;
+	margin: 0px auto;
+
+	/* Para fazer o rodapé ficar sempre na parte inferior da página ;) */
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+}
+
+.conteudo {
+	/* Para fazer o rodapé ficar sempre na parte inferior da página ;) */
+	flex: 1 1 auto;
+}
+
+.rodape {
+	text-align: center;
+	background-color: black;
+	padding: 2rem;
+}
+
+.link-rodape, .link-rodape:hover {
+	color: white;
+	text-decoration: none;
+}

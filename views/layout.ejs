@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt-br">
+<head>
+	<%- include("comum/cabecalho") %>
+
+	<%- defineContent("espaco-head") %>
+</head>
+<body>
+
+	<div class="limitador">
+
+		<%- include("comum/barra") %>
+
+		<div class="conteudo">
+
+			<%- body %>
+
+		</div>
+
+		<%- include("comum/rodape") %>
+
+		<%- defineContent("espaco-rodape") %>
+
+	</div>
+
+</body>
+</html>

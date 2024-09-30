@@ -1,0 +1,25 @@
+<div class="container-fluid">
+
+	<h1>Sou a página de produtos!</h1>
+
+	<p>Listagem de produtos (<%= produtos.length %> produtos no total)</p>
+
+	<% for (let contador = 0; contador < produtos.length; contador++) { %>
+
+		<h2>
+			<%= produtos[contador].nome %>
+		</h2>
+
+		<p>
+			Id: <%= produtos[contador].id %>
+		</p>
+
+		<p>
+			Valor: R$ <%= produtos[contador].valor %>
+		</p>
+
+		<hr />
+
+	<% } %>
+
+</div>

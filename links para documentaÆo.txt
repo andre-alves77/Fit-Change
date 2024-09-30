@@ -1,0 +1,17 @@
+EJS
+https://ejs.co/
+
+EJS Layouts
+https://www.npmjs.com/package/express-ejs-layouts
+
+Extensão do VS Code para EJS
+EJS language support
+
+Navbar
+https://getbootstrap.com/docs/5.3/components/navbar/
+
+SweetAlert2
+https://sweetalert2.github.io
+
+jQuery Validation Plugin
+https://jqueryvalidation.org/documentation/
