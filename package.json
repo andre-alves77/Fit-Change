@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node src/app"
+    "start": "node src/app",
+    "sass": "sass scss/bootstrap.scss public/css/bootstrap.min.css --style=compressed"
   },
   "description": "projeto",
   "author": {
