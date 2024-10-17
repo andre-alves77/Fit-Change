@@ -41,6 +41,14 @@ class IndexRoute {
 
 		res.render("index/produtos", opcoes);
 	}
+	
+	public async teste(req: app.Request, res: app.Response) {
+		let opcoes = {
+			titulo: "teste"
+		}
+
+		res.render("index/teste", opcoes);
+	}
 }
 
 export = IndexRoute;
