@@ -27,6 +27,18 @@ Principais Recursos
 
 # Detalhes de Configuração
 
+Para gerar o arquivo `public/css/bootstrap.min.css` é necessário instalar o pacote `sass` através do comando abaixo:
+
+`npm i -g sass`
+
+Em seguida, é necessário executar o comando abaixo para atualizar o arquivo `public/css/bootstrap.min.css` sempre que algum arquivo `scss` for alterado:
+
+`npm run sass`
+
+Para ajustar o estilo e outras configurações, de preferência, alterar o arquivo `scss/_variables.scss`. Em seguida, se ainda precisar, alterar os arquivos `scss/_xxx.scss`, `scss/navs/_xxx.scss` ou `scss/utilities/_xxx.scss`.
+
+Para funcionar corretamente, devem ser criados os seguintes arquivos/pastas nos caminhos especificados, com o conteúdo especificado:
+
 Para funcionar corretamente, devem ser criados os seguintes arquivos/pastas nos caminhos especificados, com o conteúdo especificado:
 
 - O arquivo `.env` deve ser criado em `/`, com o conteúdo abaixo:
