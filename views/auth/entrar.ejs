@@ -1,0 +1,32 @@
+<style>
+    .h1-home {
+        font-size: clamp(3rem, 4vw, 4rem);
+        line-height: 150%;
+    }
+
+    .img-home {
+        max-width: 90%;
+    }
+
+    .form-control:focus {
+    color: var(--bs-body-color);
+    background-color: var(--bs-body-bg);
+    border-color: rgb(199.5, 246.5, 199.5);
+    outline: 0;
+    box-shadow: 0 0 0 0
+}
+</style>
+
+<div class="container-fluid">
+    <div class="row">
+        <h1 class="h1-home">Entrar</h1>
+
+        <div class="col-5">
+            <label for="inputEmail" class="">E-mail</label>
+            <input type="email" class="form-control" id="inputEmail">
+
+            <label for="inputPass" class="">Senha</label>
+            <input type="password" class="form-control" id="inputPass">
+        </div>
+    </div>
+</div>
