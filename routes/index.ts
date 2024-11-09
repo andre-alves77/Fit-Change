@@ -45,6 +45,7 @@ class IndexRoute {
 
 		let opcoes = {
 			titulo: "Listagem de Produtos",
+			produto: null,
 			produtos: produtosVindosDoBanco
 		};
 
