@@ -1,0 +1,264 @@
+<style>
+    .h1-receita {
+        font-size: clamp(3rem, 4vw, 4rem);
+        line-height: 150%;
+    }
+
+    .img-receita {
+        max-width: 100%;
+        border-radius: 10%;
+    }
+
+    .table-container {
+        margin: auto;
+        min-width: 800px;
+        border-collapse: collapse;
+        background-color: white;
+        border: 1px solid black;
+    }
+
+    /* Container da tabela com rolagem */
+    .table-scroll {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        width: 100%;
+        scrollbar-width: thin;
+        /* Para Firefox */
+        scrollbar-color: transparent transparent;
+        /* Para Firefox */
+        margin-bottom: 20px;
+        /* Para evitar que o footer fique colado ao fim */
+    }
+
+    /* Esconde a barra de rolagem */
+    .table-scroll::-webkit-scrollbar {
+        height: 0;
+        width: 0;
+    }
+
+    /* Linha do footer */
+    .table-footer {
+        background-color: #f8d7da;
+        font-weight: normal;
+    }
+
+    .table-footer .row {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .table-footer .col {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* Caso você queira que a barra de rolagem apareça ao interagir */
+    .table-scroll:hover::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .table-scroll:hover::-webkit-scrollbar-thumb {
+        background: #888;
+    }
+
+    .table-row {
+        display: flex;
+        border-bottom: 1px solid black;
+    }
+
+    .table-header {
+        font-weight: normal;
+        border-bottom: 1px solid black;
+    }
+
+    .table-footer {
+        background-color: #f8d7da;
+        font-weight: normal;
+    }
+
+    .col-nut {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .col-nut p {
+        font-family: 'Archivo', sans-serif;
+        font-weight: 400;
+        margin: 7px 0 7px 0;
+        padding: 0;
+    }
+
+    .table-header p {
+        font-family: 'Archivo Black', sans-serif;
+        font-style: normal;
+        margin: 7px 0 7px 0;
+        padding: 0;
+    }
+
+    .col-ing {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .text p {
+        font-family: 'Archivo', sans-serif;
+        font-style: normal;
+    }
+
+    .description-area {
+        margin-top: 20px;
+    }
+
+    .create-recipe-btn {
+        margin-top: 30px;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 1rem;
+        cursor: pointer;
+    }
+
+    .create-recipe-btn:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="h1-receita">Criar Receita</h1>
+        </div>
+        <div class="col-12">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 d-flex">
+                        <button class="btn btn-primary mt-2 mb-2 flex-fill">Adicionar Ingredientes</button>
+                    </div>
+                    <div class="col-md-4 d-flex">
+                        <button class="btn btn-primary mt-2 mb-2 flex-fill">Adicionar Foto</button>
+                    </div>
+                    <div class="col-md-4 d-flex">
+                        <button class="btn btn-primary mt-2 mb-2 flex-fill">Referências</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabela com ingredientes -->
+        <div class="table-scroll">
+            <div class="container my-4 table-container">
+                <div class="row table-header py-2 justify-content-center align-items-center">
+                    <div class="col-1 col-ing">
+                        <p>Remover</p>
+                    </div>
+                    <div class="col col-ing">
+                        <p>Ingrediente</p>
+                    </div>
+                    <div class="col col-nut">
+                        <p>Gramas</p>
+                    </div>
+                    <div class="col col-nut">
+                        <p>Carboidratos</p>
+                    </div>
+                    <div class="col col-nut">
+                        <p>Proteínas</p>
+                    </div>
+                    <div class="col col-nut">
+                        <p>Gorduras</p>
+                    </div>
+                    <div class="col col-nut">
+                        <p>Calorias</p>
+                    </div>
+                </div>
+
+                <!-- Exemplo de uma linha de ingredientes -->
+                <div class="row table-row py-2 justify-content-center align-items-center">
+                    <div class="col col-ing">
+                        <a><img src="" alt=""><svg width="15" height="15" viewBox="0 0 42 42" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <rect x="0.180176" y="5.83704" width="8" height="50" rx="4"
+                                    transform="rotate(-45 0.180176 5.83704)" fill="#E61A1A" />
+                                <rect width="8" height="50" rx="4"
+                                    transform="matrix(-0.707107 -0.707107 -0.707107 0.707107 41.1924 5.83704)"
+                                    fill="#E61A1A" />
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="col col-ing">
+                        <p>Arroz</p>
+                    </div>
+                    <div class="col col-nut">
+                        <p>100</p>
+                    </div>
+                    <div class="col col-nut">
+                        <p>0,28g</p>
+                    </div>
+                    <div class="col col-nut">
+                        <p>0,027g</p>
+                    </div>
+                    <div class="col col-nut">
+                        <p>0,003g</p>
+                    </div>
+                    <div class="col col-nut">
+                        <p>1,3g</p>
+                    </div>
+                </div>
+                <!-- Fim do exemplo -->
+            </div>
+
+            <div class="container text-center">
+                <div class="row py-1 mt-1">
+                    <div class="col-2">
+                        Totals
+                    </div>
+                    <div class="col-10">
+                        <div class="container table-footer">
+                            <div class="row">
+                                <div class="col col-nut">
+                                    <p>400</p>
+                                </div>
+                                <div class="col col-nut">
+                                    <p>1,12g</p>
+                                </div>
+                                <div class="col col-nut">
+                                    <p>0,108g</p>
+                                </div>
+                                <div class="col col-nut">
+                                    <p>0,012g</p>
+                                </div>
+                                <div class="col col-nut">
+                                    <p>5,2g</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-8 container">
+            <div class="row">
+                <div class="col-12 description-area">
+                    <label for="descricao">Descrição da Receita</label>
+                    <textarea id="descricao" class="form-control" rows="4"></textarea>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="col-12 text-center">
+            <button class="btn btn-success mt-5">Criar Receita</button>
+        </div>
+    </div>
+</div>
