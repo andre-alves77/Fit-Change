@@ -16,7 +16,7 @@ class IndexRoute {
 
 		// essa rota deverá ser exluida pois o index de usuario logado é um e o index de usuario sem conta é outro
 	public async home(req: app.Request, res: app.Response) {
-		res.render("index/sobre");
+		res.render("index/home");
 	}
 
 	public async empresa(req: app.Request, res: app.Response) {
