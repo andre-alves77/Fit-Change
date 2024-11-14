@@ -9,6 +9,10 @@ class AuthRoute {
 		res.render("auth/cadastro");
 	}
 
+	public async perfil(req: app.Request, res: app.Response) {
+		res.render("auth/cadastro");
+	}
+
 }
 
 export = AuthRoute;

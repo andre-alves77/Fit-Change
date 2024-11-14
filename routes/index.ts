@@ -14,12 +14,25 @@ class IndexRoute {
 		res.render("index/sobre", opcoes);
 	}
 
+		// essa rota deverá ser exluida pois o index de usuario logado é um e o index de usuario sem conta é outro
+	public async home(req: app.Request, res: app.Response) {
+		res.render("index/home");
+	}
+
 	public async empresa(req: app.Request, res: app.Response) {
 		let opcoes = {
 			titulo: "Nossa Empresa"
 		};
 
 		res.render("index/empresa", opcoes);
+	}
+
+	public async perfil(req: app.Request, res: app.Response) {
+		let opcoes = {
+			titulo: "Perfil"
+		};
+
+		res.render("index/perfil", opcoes);
 	}
 
 	public async produtos(req: app.Request, res: app.Response) {

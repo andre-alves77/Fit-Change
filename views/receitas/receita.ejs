@@ -1,0 +1,283 @@
+<style>
+  .h1-receita {
+    font-size: clamp(3rem, 4vw, 4rem);
+    line-height: 150%;
+
+  }
+
+  .img-receita {
+    max-width: 100%;
+    border-radius: 10%;
+  }
+
+  .table-container {
+    margin: auto;
+    min-width: 800px;
+    border-collapse: collapse;
+    background-color: white;
+    border: 1px solid black;
+
+  }
+
+ /* Container da tabela com rolagem */
+.table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  width: 100%;
+  scrollbar-width: thin; /* Para Firefox */
+  scrollbar-color: transparent transparent; /* Para Firefox */
+  margin-bottom: 20px; /* Para evitar que o footer fique colado ao fim */
+}
+
+/* Esconde a barra de rolagem */
+.table-scroll::-webkit-scrollbar {
+  height: 0;
+  width: 0;
+}
+
+/* Linha do footer */
+.table-footer {
+  background-color: #f8d7da;
+  font-weight: normal;
+}
+
+.table-footer .row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.table-footer .col {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Caso você queira que a barra de rolagem apareça ao interagir */
+.table-scroll:hover::-webkit-scrollbar {
+  width: 8px;
+}
+
+.table-scroll:hover::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+  
+
+  .table-row {
+    display: flex;
+    border-bottom: 1px solid black;
+
+  }
+
+  .table-header {
+    font-weight: normal;
+    border-bottom: 1px solid black;
+
+  }
+
+  .table-footer {
+    background-color: #f8d7da;
+    font-weight: normal;
+
+  }
+
+  .col-nut {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+  }
+
+  .col-nut p {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 400;
+    margin: 7px 0 7px 0;
+    padding: 0;
+  }
+
+  .table-header p {
+    font-family: 'Archivo Black', sans-serif;
+    font-style: normal;
+
+    margin: 7px 0 7px 0;
+    padding: 0;
+
+  }
+
+  .col-ing {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .text p {
+    font-family: 'Archivo', sans-serif;
+    font-style: normal;
+  }
+</style>
+
+<div class="container-fluid">
+  <div class="row">
+
+    <div class="col-md-12 ">
+      <h1 class="h1-receita">Baião de dois</h1>
+    </div>
+
+    <div class="col-md-3 mb-1 ">
+      <img src="/public/img/baiao.png" class="img-receita" alt="">
+    </div>
+    <div class="col-md-9 text">
+      <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ea accusantium possimus harum accusamus, natus vel,
+        earum omnis fugiat ipsam ad inventore beatae dicta facere esse eos saepe eveniet. Voluptatum, in.Lorem ipsum
+        dolor sit amet consectetur, adipisicing elit. Ea accusantium possimus harum accusamus, natus vel,
+        earum omnis fugiat ipsam ad inventore beatae dicta facere esse eos saepe eveniet. Voluptatum, in.Lorem ipsum
+        dolor sit amet consectetur, adipisicing elit. Ea accusantium possimus harum accusamus, natus vel,
+        earum omnis fugiat ipsam ad inventore beatae dicta facere esse eos saepe eveniet. Voluptatum, in.Lorem ipsum
+        dolor sit amet consectetur, adipisicing elit. Ea accusantium possimus harum accusamus, natus vel,
+        earum omnis fugiat ipsam ad inventore beatae dicta facere esse eos saepe eveniet. Voluptatum, in.Lorem ipsum
+        dolor sit amet consectetur, adipisicing elit. Ea accusantium possimus harum accusamus, natus vel,
+    </div>
+    <div class="table-scroll">
+      <div class="container my-4 table-container">
+        <div class="row table-header py-2  justify-content-center align-items-center">
+          <div class="col col-ing">
+            <p>Ingrediente</p>
+          </div>
+          <div class="col col-nut">
+            <p>Gramas</p>
+          </div>
+          <div class="col col-nut">,
+            <p>Carboidratos</p>
+          </div>
+          <div class="col col-nut">
+            <p>Proteínas</p>
+          </div>
+          <div class="col col-nut">
+            <p>Gorduras</p>
+          </div>
+          <div class="col col-nut">
+            <p>Calorias</p>
+          </div>
+        </div>
+
+        <div class="row table-row py-2  justify-content-center align-items-center">
+
+          <div class="col col-ing">
+            <p>Arroz</p>
+          </div>
+          <div class="col col-nut">
+            <p>100</p>
+          </div>
+          <div class="col col-nut">
+            <p>0,28g</p>
+          </div>
+          <div class="col col-nut">
+            <p>0,027g</p>
+          </div>
+          <div class="col col-nut">
+            <p>0,003g</p>
+          </div>
+          <div class="col col-nut">
+            <p>1,3g</p>
+          </div>
+        </div>
+        <div class="row table-row py-2  justify-content-center align-items-center">
+          <div class="col col-ing">
+            <p>Arroz</p>
+          </div>
+          <div class="col col-nut">
+            <p>100</p>
+          </div>
+          <div class="col col-nut">
+            <p>0,28g</p>
+          </div>
+          <div class="col col-nut">
+            <p>0,027g</p>
+          </div>
+          <div class="col col-nut">
+            <p>0,003g</p>
+          </div>
+          <div class="col col-nut">
+            <p>1,3g</p>
+          </div>
+        </div>
+        <div class="row table-row py-2  justify-content-center align-items-center">
+          <div class="col col-ing">
+            <p>Arroz</p>
+          </div>
+          <div class="col col-nut">
+            <p>100</p>
+          </div>
+          <div class="col col-nut">
+            <p>0,28g</p>
+          </div>
+          <div class="col col-nut">
+            <p>0,027g</p>
+          </div>
+          <div class="col col-nut">
+            <p>0,003g</p>
+          </div>
+          <div class="col col-nut">
+            <p>1,3g</p>
+          </div>
+        </div>
+        <div class="row table-row py-2  justify-content-center align-items-center">
+          <div class="col col-ing">
+            <p>Arroz</p>
+          </div>
+          <div class="col col-nut">
+            <p>100</p>
+          </div>
+          <div class="col col-nut">
+            <p>0,28g</p>
+          </div>
+          <div class="col col-nut">
+            <p>0,027g</p>
+          </div>
+          <div class="col col-nut">
+            <p>0,003g</p>
+          </div>
+          <div class="col col-nut">
+            <p>1,3g</p>
+          </div>
+        </div>
+
+
+      </div>
+      <div class="container text-center">
+        <div class="row py-1 mt-1">
+          <div class="col-2">
+            Totals
+          </div>
+          <div class="col-10">
+            <div class="container table-footer">
+              <div class="row">
+                <div class="col col-nut">
+                  <p>400</p>
+                </div>
+                <div class="col col-nut">
+                  <p>1,12g</p>
+                </div>
+                <div class="col col-nut">
+                  <p>0,108g</p>
+                </div>
+                <div class="col col-nut">
+                  <p>0,012g</p>
+                </div>
+                <div class="col col-nut">
+                  <p>5,2g</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>

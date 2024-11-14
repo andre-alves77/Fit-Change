@@ -16,6 +16,17 @@
     .form-btn-entrar {
         width: 100%;
         margin-top: 1rem;
+        width: 300px;
+        
+    }
+
+    .container { 
+        display: flex; 
+        align-items: center; 
+        margin-top: 20px; 
+    } 
+    .checkbox { 
+        margin-right: 10px; 
     }
 
     .caixa {
@@ -83,8 +94,16 @@
                     </form>
                 </div>
             </div>
-            <div class="caixa"> <p>Aceito receber notificação no Email</p></div>
-            <div class="caixa"> <p>Aceito os termos de serviço</p></div>
+            <div class="container">
+                 <input type="checkbox" id="terms" class="checkbox"> 
+                 <label for="terms">Eu aceito receber notificação no Email</label> 
+            </div>
+            <div class="container">
+                 <input type="checkbox" id="terms" class="checkbox"> 
+                 <label for="terms">Eu aceito os Termos de Serviço</label> 
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg form-btn-entrar center">Cadastrar</button>
+           
         </div>
     </div>
 </div>
