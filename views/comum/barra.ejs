@@ -32,19 +32,25 @@
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
 					<a class="nav-link black-text" href="/home">Home</a>
-				</li>
-                <li class="nav-item">
-					<a class="nav-link black-text" href="/receitas">Receitas</a>
-                </li>
+				</li> <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Dropdown
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="/receitas/criar">Criar receitas</a></li>
+                      <li><a class="dropdown-item" href="/receitas/">Buscar receitas</a></li>
+                    </ul>
+                  </li>
 				<li class="nav-item">
 					<a class="nav-link black-text" href="/sobre">Sobre nós</a>
                 </li>
-
                 <li class="nav-item">
                     <a href="/auth" class="btn btn-primary btn-lg">Entrar</a>
                 </li>
             </ul>
+            
         </div>
     </div>
 </nav>
+
 

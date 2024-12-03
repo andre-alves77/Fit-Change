@@ -1,0 +1,170 @@
+<style>
+    .fit-cover {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+    }
+
+    @media (min-width: 768px) {
+        .fit-cover {
+            position: absolute;
+        }
+    }
+
+    .card {
+        border-color: #000;
+        border-width: 2px;
+        box-shadow: 4px 4px 0px #000;
+        transition: box-shadow ease-in-out 0.3s;
+        position: relative;
+    }
+
+    .card:hover {
+        box-shadow: 0px 0px 0px #000;
+    }
+
+    .card img {
+        width: 100%;
+        height: auto;
+    }
+
+    .likes {
+        font-size: 16px;
+        color: #ff4d4f;
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+    }
+
+    .like-icon {
+        font-size: 20px;
+        margin-right: 5px;
+    }
+
+    .button-container {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    /* Botões de Low Carb, Mid Carb, High Carb */
+    .btn-low-carb {
+        background-color: #00FF80;
+        color: #000;
+        padding: 8px 16px;
+        font-weight: bold;
+        border-radius: 8px;
+        border: 2px solid #000;
+    }
+
+    .btn-mid-carb {
+        background-color: #FFFF00;
+        color: #000;
+        padding: 8px 16px;
+        font-weight: bold;
+        border-radius: 8px;
+        border: 2px solid #000;
+    }
+
+    .btn-high-carb {
+        background-color: #FF0000;
+        color: #000;
+        padding: 8px 16px;
+        font-weight: bold;
+        border-radius: 8px;
+        border: 2px solid #000;
+    }
+
+    .badge {
+        position: absolute;
+        top: -10px;
+        right: 10px;
+    }
+
+    /* Barra de busca */
+    .search-bar {
+        font-size: 18px;
+        padding: 10px 20px;
+        border: 2px solid #000;
+        border-radius: 8px;
+        box-shadow: 4px 4px 0px #000;
+        transition: box-shadow ease-in-out 0.3s;
+    }
+
+    .search-bar:focus {
+        box-shadow: 0px 0px 0px #000;
+        outline: none;
+    }
+</style>
+<div class="container-fluid">
+    <div class="row mt-4">
+        <div class="col-12">
+            <h1 class="mb-3">Receitas</h1>
+        </div>
+        <div class="col">
+            <input type="text" class="form-control search-bar" placeholder="Buscar receitas..." />
+        </div>
+        <div class="col-auto">
+            <button class="btn btn-primary btn-lg">Buscar</button>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <!-- Card Template -->
+        <div class="col-lg-4 col-md-6 col-sm-12">
+        <a href="receitas/receita"><div class="card w-100 mb-3">
+                <div class="badge btn-low-carb">Low Carb</div>
+                <img class="card-img-top" src="/public/img/baiao.png" alt="Baião de Dois" />
+                <div class="card-body">
+                    <h4 class="card-title">Baião de Dois</h4>
+                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin in quam egestas,
+                        pellentesque urna vitae, pulvinar nunc.</p>
+                    <div class="likes">
+                        <span class="like-icon">❤️</span> 10,4k
+                    </div>
+                </div>
+            </div></a>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-12">
+        <a href="receitas/receita"><div class="card w-100 mb-3">
+                <div class="badge btn-low-carb">Low Carb</div>
+                <img class="card-img-top" src="/public/img/baiao.png" alt="Baião de Dois" />
+                <div class="card-body">
+                    <h4 class="card-title">Baião de Dois</h4>
+                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin in quam egestas,
+                        pellentesque urna vitae, pulvinar nunc.</p>
+                    <div class="likes">
+                        <span class="like-icon">❤️</span> 10,4k
+                    </div>
+                </div>
+            </div></a>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-12">
+        <a href="receitas/receita"><div class="card w-100 mb-3">
+                <div class="badge btn-low-carb">Low Carb</div>
+                <img class="card-img-top" src="/public/img/baiao.png" alt="Baião de Dois" />
+                <div class="card-body">
+                    <h4 class="card-title">Baião de Dois</h4>
+                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin in quam egestas,
+                        pellentesque urna vitae, pulvinar nunc.</p>
+                    <div class="likes">
+                        <span class="like-icon">❤️</span> 10,4k
+                    </div>
+                </div>
+            </div></a>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-12">
+        <a href="receitas/receita"><div class="card w-100 mb-3">
+                <div class="badge btn-low-carb">Low Carb</div>
+                <img class="card-img-top" src="/public/img/baiao.png" alt="Baião de Dois" />
+                <div class="card-body">
+                    <h4 class="card-title">Baião de Dois</h4>
+                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin in quam egestas,
+                        pellentesque urna vitae, pulvinar nunc.</p>
+                    <div class="likes">
+                        <span class="like-icon">❤️</span> 10,4k
+                    </div>
+                </div>
+            </div></a>
+        </div>
+        <!-- Duplicar o template acima para mais receitas -->
+    </div>
+</div>
