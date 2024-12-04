@@ -1,0 +1,89 @@
+<style>
+    .modal-dialog {
+        overflow-y: initial !important
+    }
+
+    .modal-body {
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+</style>
+
+<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Adicionar Ingredientes</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <input type="text" autofocus class="form-control search-bar"
+                                placeholder="Buscar ingrediente..." />
+                        </div>
+                    </div>
+
+                    <div id="resultadoIngredientes" class="mt-3"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    document.querySelector('.search-bar').addEventListener('input', async function () {
+        const ingrediente = this.value.trim();
+
+        if (ingrediente.length > 2) { 
+            try {
+                const response = await fetch(`buscarIngredientes?ingrediente=${encodeURIComponent(ingrediente)}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    mostrarResultadosModal(data);
+                    console.log(data)
+                } else {
+                    console.error("Erro ao buscar ingredientes:", response.statusText);
+                }
+            } catch (error) {
+                console.error("Erro ao buscar ingredientes:", error);
+            }
+        } else {
+            document.querySelector('.resultadoIngredientes').innerHTML = "";
+        }
+    });
+    function mostrarResultadosModal(ingredientes) {
+        const container = document.getElementById('resultadoIngredientes');
+        container.innerHTML = "";
+
+        ingredientes.forEach(ing => {
+            console.log(ing)
+            const row = document.createElement("div");
+            row.classList.add("row", "align-items-center", "mt-2");
+            row.innerHTML = `
+            <div class="col">
+                ${ing.name}
+            </div>
+            <div class="col-auto">
+                <button class="btn btn-primary btn-sm" onclick="adicionarIngrediente({name:'${ing.name}', id:${ing.id}, gramas:100, carboidratos:${ing.carbohydrates}, proteinas:${ing.protein}, gorduras:${ing.lipids}, calorias:${ing.kcal}, fibras:${ing.dietaryFiber}})">+</button>
+            </div>
+            <div class="col-12">
+                <hr>
+                </div>
+        `;
+            container.appendChild(row);
+        });
+    }
+
+
+    document.getElementById('myModal').addEventListener('shown.bs.modal', function () {
+        document.querySelector('.search-bar').focus();
+    });
+
+
+</script>

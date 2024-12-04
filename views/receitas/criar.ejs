@@ -131,7 +131,6 @@
         background-color: #0056b3;
     }
 </style>
-
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
@@ -141,7 +140,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-4 d-flex">
-                        <button class="btn btn-primary mt-2 mb-2 flex-fill">Adicionar Ingredientes</button>
+                        <button class="btn btn-primary mt-2 mb-2 flex-fill" type="button" data-bs-toggle="modal"
+                            data-bs-target="#myModal">Adicionar Ingredientes</button>
                     </div>
                     <div class="col-md-4 d-flex">
                         <button class="btn btn-primary mt-2 mb-2 flex-fill">Adicionar Foto</button>
@@ -153,14 +153,13 @@
             </div>
         </div>
 
-        <!-- Tabela com ingredientes -->
         <div class="table-scroll">
             <div class="container my-4 table-container">
                 <div class="row table-header py-2 justify-content-center align-items-center">
-                    <div class="col-1 col-ing">
+                    <div class="col-1 text-center">
                         <p>Remover</p>
                     </div>
-                    <div class="col col-ing">
+                    <div class="col-2 text-center">
                         <p>Ingrediente</p>
                     </div>
                     <div class="col col-nut">
@@ -178,73 +177,35 @@
                     <div class="col col-nut">
                         <p>Calorias</p>
                     </div>
-                </div>
-
-                <!-- Exemplo de uma linha de ingredientes -->
-                <div class="row table-row py-2 justify-content-center align-items-center">
-                    <div class="col col-ing">
-                        <a><img src="" alt=""><svg width="15" height="15" viewBox="0 0 42 42" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <rect x="0.180176" y="5.83704" width="8" height="50" rx="4"
-                                    transform="rotate(-45 0.180176 5.83704)" fill="#E61A1A" />
-                                <rect width="8" height="50" rx="4"
-                                    transform="matrix(-0.707107 -0.707107 -0.707107 0.707107 41.1924 5.83704)"
-                                    fill="#E61A1A" />
-                            </svg>
-                        </a>
-                    </div>
-                    <div class="col col-ing">
-                        <p>Arroz</p>
-                    </div>
                     <div class="col col-nut">
-                        <p>100</p>
-                    </div>
-                    <div class="col col-nut">
-                        <p>0,28g</p>
-                    </div>
-                    <div class="col col-nut">
-                        <p>0,027g</p>
-                    </div>
-                    <div class="col col-nut">
-                        <p>0,003g</p>
-                    </div>
-                    <div class="col col-nut">
-                        <p>1,3g</p>
+                        <p>Fibras</p>
                     </div>
                 </div>
-                <!-- Fim do exemplo -->
-            </div>
-
-            <div class="container text-center">
-                <div class="row py-1 mt-1">
-                    <div class="col-2">
-                        Totals
-                    </div>
-                    <div class="col-10">
-                        <div class="container table-footer">
-                            <div class="row">
-                                <div class="col col-nut">
-                                    <p>400</p>
-                                </div>
-                                <div class="col col-nut">
-                                    <p>1,12g</p>
-                                </div>
-                                <div class="col col-nut">
-                                    <p>0,108g</p>
-                                </div>
-                                <div class="col col-nut">
-                                    <p>0,012g</p>
-                                </div>
-                                <div class="col col-nut">
-                                    <p>5,2g</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div id="ingredientesTabela"></div>
             </div>
         </div>
 
+        <div class="container text-center mt-4">
+            <h5>Totais</h5>
+            <p>Gramas: <span id="totalGramas">0</span></p>
+            <p>Carboidratos: <span id="totalCarboidratos">0</span>g</p>
+            <p>Proteínas: <span id="totalProteinas">0</span>g</p>
+            <p>Gorduras: <span id="totalGorduras">0</span>g</p>
+            <p>Calorias: <span id="totalCalorias">0</span>kcal</p>
+            <p>Fibras: <span id="totalFibras">0</span>g</p>
+        </div>
+
+        <div class="col-8 container">
+            <div class="row">
+                <div class="col-12">
+                    <label for="nome">Nome da Receita</label>
+                    <input id="nome" maxlength="60" class="form-control" rows="4">
+                </div>
+            </div>
+        </div>
+        <div class="col-8 container">
+            <div id="categorias-container" class="mt-3"></div>
+        </div>
         <div class="col-8 container">
             <div class="row">
                 <div class="col-12 description-area">
@@ -254,11 +215,143 @@
             </div>
         </div>
 
-
-
-
         <div class="col-12 text-center">
             <button class="btn btn-success mt-5">Criar Receita</button>
         </div>
     </div>
 </div>
+
+
+<script>
+    const NutrienteUnidade = {
+        energiaKcal: "kcal",
+        energiaKj: "kJ",
+        proteina: "g",
+        lipideos: "g",
+        colesterol: "mg",
+        carboidratos: "g",
+        fibraAlimentar: "g"
+    };
+
+    let ingredientesSelecionados = [];
+
+    function adicionarIngrediente(ingrediente) {
+        ingredientesSelecionados.push(ingrediente);
+        atualizarTabela();
+    }
+
+    function removerIngrediente(index) {
+        ingredientesSelecionados.splice(index, 1);
+        atualizarTabela();
+    }
+
+    function atualizarGramas(index, novaQuantidade) {
+    novaQuantidade = parseFloat(novaQuantidade);
+
+    if (isNaN(novaQuantidade) || novaQuantidade <= 0) {
+        alert('Insira um valor válido para gramas.');
+        atualizarTabela(); 
+        return;
+    }
+
+    let ingrediente = ingredientesSelecionados[index];
+    let fator = novaQuantidade / ingrediente.gramas;  
+
+    ingrediente.gramas = parseFloat(novaQuantidade.toFixed(2));
+    ingrediente.carboidratos = parseFloat((ingrediente.carboidratos * fator).toFixed(2));
+    ingrediente.proteinas = parseFloat((ingrediente.proteinas * fator).toFixed(2));
+    ingrediente.gorduras = parseFloat((ingrediente.gorduras * fator).toFixed(2));
+    ingrediente.calorias = parseFloat((ingrediente.calorias * fator).toFixed(2));
+    ingrediente.fibras = parseFloat((ingrediente.fibras * fator).toFixed(2));
+
+    atualizarTabela();  
+}
+
+
+    
+
+    function atualizarTabela() {
+        let tabelaHTML = '';
+        let totais = { gramas: 0, carboidratos: 0, proteinas: 0, gorduras: 0, calorias: 0, fibras: 0 };
+
+        ingredientesSelecionados.forEach((ingrediente, index) => {
+            console.log(ingrediente)
+            tabelaHTML += `
+            <div class="row table-row py-2 justify-content-center align-items-center">
+                <div class="col-1 text-center">
+                    <button class="btn btn-danger btn-sm" onclick="removerIngrediente(${index})">X</button>
+                </div>
+                
+                <div class="col-2 text-center">${ingrediente.name}</div>
+                <div class="col col-nut">    <input type="number" class="form-control form-control-sm gramas-input" style="width: 70px;" value="${ingrediente.gramas}" onchange="atualizarGramas(${index}, this.value)">g</div>
+                <div class="col col-nut">${ingrediente.carboidratos}g</div>
+                <div class="col col-nut">${ingrediente.proteinas}g</div>
+                <div class="col col-nut">${ingrediente.gorduras}g</div>
+                <div class="col col-nut">${ingrediente.calorias}kcal</div>
+                <div class="col col-nut">${ingrediente.fibras}g</div>
+            </div>
+        `;
+
+            totais.gramas += ingrediente.gramas;
+            totais.carboidratos += ingrediente.carboidratos;
+            totais.proteinas += ingrediente.proteinas;
+            totais.gorduras += ingrediente.gorduras;
+            totais.calorias += ingrediente.calorias;
+            totais.fibras += ingrediente.fibras;
+        });
+
+        document.getElementById('ingredientesTabela').innerHTML = tabelaHTML;
+
+        document.getElementById('totalGramas').innerText = totais.gramas;
+        document.getElementById('totalCarboidratos').innerText = totais.carboidratos.toFixed(2);
+        document.getElementById('totalProteinas').innerText = totais.proteinas.toFixed(2);
+        document.getElementById('totalGorduras').innerText = totais.gorduras.toFixed(2);
+        document.getElementById('totalCalorias').innerText = totais.calorias.toFixed(2);
+        document.getElementById('totalFibras').innerText = totais.fibras.toFixed(2);
+    }
+
+
+
+
+    async function buscarCategorias() {
+    try {
+        const response = await fetch('buscarCategorias'); // Ajuste a URL conforme a rota definida no seu back-end
+        const categorias = await response.json();
+        renderizarCategorias(categorias); // Chama a função para renderizar os checkboxes
+    } catch (error) {
+        console.error('Erro ao buscar categorias:', error);
+    }
+}
+
+// Função para renderizar checkboxes dinamicamente
+function renderizarCategorias(categorias) {
+    const container = document.getElementById('categorias-container');
+    container.innerHTML = ''; // Limpa o contêiner antes de adicionar os novos elementos
+
+    categorias.forEach(categoria => {
+        const div = document.createElement('div');
+        div.className = 'form-check'; // Classe Bootstrap
+
+        const checkbox = document.createElement('input');
+        checkbox.className = 'form-check-input';
+        checkbox.type = 'checkbox';
+        checkbox.id = `categoria-${categoria.id}`;
+        checkbox.name = 'categorias';
+        checkbox.value = categoria.nome;
+
+        const label = document.createElement('label');
+        label.className = 'form-check-label';
+        label.htmlFor = `categoria-${categoria.id}`;
+        label.innerText = categoria.nome;
+
+        div.appendChild(checkbox);
+        div.appendChild(label);
+        container.appendChild(div);
+    });
+}
+
+// Chama a função para carregar as categorias assim que a página carregar
+document.addEventListener('DOMContentLoaded', buscarCategorias);
+
+</script>
+<%- include("ingredientes_modal") %>
