@@ -139,16 +139,12 @@
         <div class="col-12">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-4 d-flex">
+                    <div class="col-auto">
                         <button class="btn btn-primary mt-2 mb-2 flex-fill" type="button" data-bs-toggle="modal"
                             data-bs-target="#myModal">Adicionar Ingredientes</button>
                     </div>
-                    <div class="col-md-4 d-flex">
-                        <button class="btn btn-primary mt-2 mb-2 flex-fill">Adicionar Foto</button>
-                    </div>
-                    <div class="col-md-4 d-flex">
-                        <button class="btn btn-primary mt-2 mb-2 flex-fill">Referências</button>
-                    </div>
+<div class="col">
+</div>
                 </div>
             </div>
         </div>
@@ -199,18 +195,25 @@
             <div class="row">
                 <div class="col-12">
                     <label for="nome">Nome da Receita</label>
-                    <input id="nome" maxlength="60" class="form-control" rows="4">
+                    <input id="nome" maxlength="60" class="form-control" rows="4" >
                 </div>
             </div>
-        </div>
-        <div class="col-8 container">
-            <div id="categorias-container" class="mt-3"></div>
-        </div>
-        <div class="col-8 container">
-            <div class="row">
-                <div class="col-12 description-area">
-                    <label for="descricao">Descrição da Receita</label>
-                    <textarea id="descricao" class="form-control" rows="4"></textarea>
+
+            <div class="col-md-12">
+                <label for="receitaImagem" class="mt-3">Imagem da Receita</label>
+                <input type="file" id="receitaImagem" class="form-control" accept="image/*">
+            </div>
+            
+            <div class="col-12 container">
+                <label for="categorias-container" class="mt-3">Selecione as categorias</label>
+                <div id="categorias-container"></div>
+            </div>
+            <div class="col-12 container">
+                <div class="row">
+                    <div class="col-12 description-area">
+                        <label for="descricao mt-3">Descrição da Receita</label>
+                        <textarea id="descricao" class="form-control" rows="4"></textarea>
+                    </div>
                 </div>
             </div>
         </div>
@@ -353,65 +356,72 @@ function renderizarCategorias(categorias) {
 document.addEventListener('DOMContentLoaded', buscarCategorias);
 
 
-
-
 let isButtonClicked = false;
 
 async function criarReceita() {
     if (isButtonClicked) {
-        return; 
+        return;
     }
     isButtonClicked = true;
 
+    // Coleta os valores dos campos
     const nome = document.getElementById('nome').value;
     const descricao = document.getElementById('descricao').value;
     const ingredientes = ingredientesSelecionados;
     const categorias = [];
+    const imagem = document.getElementById('receitaImagem').files[0];
 
+    // Coleta as categorias selecionadas
     const categoriaElements = document.querySelectorAll('input[name="categorias"]:checked');
     categoriaElements.forEach((checkbox) => {
         categorias.push(checkbox.value);
     });
 
-    if (!nome || !descricao || ingredientes.length === 0 || categorias.length === 0) {
+    // Valida se todos os campos estão preenchidos
+    if (!nome || !descricao || ingredientes.length === 0 || categorias.length === 0 || !imagem) {
         alert("Por favor, preencha todos os campos necessários.");
-        isButtonClicked = false; 
+        isButtonClicked = false;
         return;
     }
 
-    const receita = {
-        nome: nome,
-        descricao: descricao,
-        ingredientes: ingredientes,
-        categoriasIds: categorias,
-    };
+    // Verifica se a imagem tem o formato correto (por exemplo, jpg, png, jpeg)
+    const validImageTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+    if (!validImageTypes.includes(imagem.type)) {
+        alert("Por favor, envie uma imagem válida (jpg, jpeg ou png).");
+        isButtonClicked = false;
+        return;
+    }
 
-    console.log(receita)
-
+    // Cria o FormData para enviar com a imagem
+    const formData = new FormData();
+    formData.append('nome', nome);
+    formData.append('descricao', descricao);
+    formData.append('ingredientes', JSON.stringify(ingredientes)); // Enviando a lista de ingredientes como JSON
+    formData.append('categoriasIds', JSON.stringify(categorias)); // Enviando a lista de categorias como JSON
+    formData.append('imagem', imagem);
+    console.log(formData)
+    // Envia a requisição para o backend
     try {
         const response = await fetch('/receitas/criarReceita', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(receita),
+            body: formData, // Envia o FormData diretamente, sem cabeçalhos 'Content-Type'
         });
 
         if (response.ok) {
             alert("Receita criada com sucesso!");
-            isButtonClicked = false; 
         } else {
             alert("Erro ao criar a receita.");
-            isButtonClicked = false; 
         }
     } catch (error) {
         console.error('Erro ao enviar a receita:', error);
         alert("Erro ao criar a receita.");
-        isButtonClicked = false; 
+    } finally {
+        isButtonClicked = false;
     }
 }
 
 document.getElementById('btnCriarReceita').addEventListener('click', criarReceita);
+
 
 </script>
 <%- include("ingredientes_modal") %>
