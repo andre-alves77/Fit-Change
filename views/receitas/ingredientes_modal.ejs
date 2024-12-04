@@ -36,13 +36,15 @@
 </div>
 
 
+
+
 <script>
     document.querySelector('.search-bar').addEventListener('input', async function () {
         const ingrediente = this.value.trim();
 
         if (ingrediente.length > 2) { 
             try {
-                const response = await fetch(`buscarIngredientes?ingrediente=${encodeURIComponent(ingrediente)}`);
+                const response = await fetch(`/api/buscarIngredientes?ingrediente=${encodeURIComponent(ingrediente)}`);
                 if (response.ok) {
                     const data = await response.json();
                     mostrarResultadosModal(data);
@@ -57,28 +59,48 @@
             document.querySelector('.resultadoIngredientes').innerHTML = "";
         }
     });
-    function mostrarResultadosModal(ingredientes) {
-        const container = document.getElementById('resultadoIngredientes');
-        container.innerHTML = "";
 
-        ingredientes.forEach(ing => {
-            console.log(ing)
-            const row = document.createElement("div");
-            row.classList.add("row", "align-items-center", "mt-2");
-            row.innerHTML = `
-            <div class="col">
-                ${ing.name}
-            </div>
-            <div class="col-auto">
-                <button class="btn btn-primary btn-sm" onclick="adicionarIngrediente({name:'${ing.name}', id:${ing.id}, gramas:100, carboidratos:${ing.carbohydrates}, proteinas:${ing.protein}, gorduras:${ing.lipids}, calorias:${ing.kcal}, fibras:${ing.dietaryFiber}})">+</button>
-            </div>
-            <div class="col-12">
-                <hr>
-                </div>
-        `;
-            container.appendChild(row);
+    function mostrarResultadosModal(ingredientes) {
+    const container = document.getElementById('resultadoIngredientes');
+    container.innerHTML = "";  // Limpa o conteúdo anterior
+
+    ingredientes.forEach(ing => {
+        const row = document.createElement("div");
+        row.classList.add("row", "align-items-center", "mt-2");
+
+        const colNome = document.createElement("div");
+        colNome.classList.add("col");
+        colNome.innerText = ing.nome;
+
+        const colButton = document.createElement("div");
+        colButton.classList.add("col-auto");
+
+        // Cria o botão e adiciona o evento
+        const button = document.createElement("button");
+        button.classList.add("btn", "btn-primary", "btn-sm");
+        button.innerText = "+";
+        button.addEventListener("click", () => {
+            adicionarIngrediente(ing);
         });
-    }
+
+        // Monta a estrutura da linha
+        colButton.appendChild(button);
+        row.appendChild(colNome);
+        row.appendChild(colButton);
+
+        // Linha divisória
+        const hr = document.createElement("hr");
+        const colDivisoria = document.createElement("div");
+        colDivisoria.classList.add("col-12");
+        colDivisoria.appendChild(hr);
+
+        // Adiciona os elementos à linha e ao container
+        container.appendChild(row);
+        container.appendChild(colDivisoria);
+    });
+}
+
+
 
 
     document.getElementById('myModal').addEventListener('shown.bs.modal', function () {

@@ -216,7 +216,7 @@
         </div>
 
         <div class="col-12 text-center">
-            <button class="btn btn-success mt-5">Criar Receita</button>
+            <button class="btn btn-success mt-5" id="btnCriarReceita">Criar Receita</button>
         </div>
     </div>
 </div>
@@ -282,7 +282,7 @@
                     <button class="btn btn-danger btn-sm" onclick="removerIngrediente(${index})">X</button>
                 </div>
                 
-                <div class="col-2 text-center">${ingrediente.name}</div>
+                <div class="col-2 text-center">${ingrediente.nome}</div>
                 <div class="col col-nut">    <input type="number" class="form-control form-control-sm gramas-input" style="width: 70px;" value="${ingrediente.gramas}" onchange="atualizarGramas(${index}, this.value)">g</div>
                 <div class="col col-nut">${ingrediente.carboidratos}g</div>
                 <div class="col col-nut">${ingrediente.proteinas}g</div>
@@ -315,7 +315,7 @@
 
     async function buscarCategorias() {
     try {
-        const response = await fetch('buscarCategorias'); // Ajuste a URL conforme a rota definida no seu back-end
+        const response = await fetch('/api/buscarCategorias'); // Ajuste a URL conforme a rota definida no seu back-end
         const categorias = await response.json();
         renderizarCategorias(categorias); // Chama a função para renderizar os checkboxes
     } catch (error) {
@@ -337,7 +337,7 @@ function renderizarCategorias(categorias) {
         checkbox.type = 'checkbox';
         checkbox.id = `categoria-${categoria.id}`;
         checkbox.name = 'categorias';
-        checkbox.value = categoria.nome;
+        checkbox.value = categoria.id;
 
         const label = document.createElement('label');
         label.className = 'form-check-label';
@@ -350,8 +350,68 @@ function renderizarCategorias(categorias) {
     });
 }
 
-// Chama a função para carregar as categorias assim que a página carregar
 document.addEventListener('DOMContentLoaded', buscarCategorias);
+
+
+
+
+let isButtonClicked = false;
+
+async function criarReceita() {
+    if (isButtonClicked) {
+        return; 
+    }
+    isButtonClicked = true;
+
+    const nome = document.getElementById('nome').value;
+    const descricao = document.getElementById('descricao').value;
+    const ingredientes = ingredientesSelecionados;
+    const categorias = [];
+
+    const categoriaElements = document.querySelectorAll('input[name="categorias"]:checked');
+    categoriaElements.forEach((checkbox) => {
+        categorias.push(checkbox.value);
+    });
+
+    if (!nome || !descricao || ingredientes.length === 0 || categorias.length === 0) {
+        alert("Por favor, preencha todos os campos necessários.");
+        isButtonClicked = false; 
+        return;
+    }
+
+    const receita = {
+        nome: nome,
+        descricao: descricao,
+        ingredientes: ingredientes,
+        categoriasIds: categorias,
+    };
+
+    console.log(receita)
+
+    try {
+        const response = await fetch('/receitas/criarReceita', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(receita),
+        });
+
+        if (response.ok) {
+            alert("Receita criada com sucesso!");
+            isButtonClicked = false; 
+        } else {
+            alert("Erro ao criar a receita.");
+            isButtonClicked = false; 
+        }
+    } catch (error) {
+        console.error('Erro ao enviar a receita:', error);
+        alert("Erro ao criar a receita.");
+        isButtonClicked = false; 
+    }
+}
+
+document.getElementById('btnCriarReceita').addEventListener('click', criarReceita);
 
 </script>
 <%- include("ingredientes_modal") %>
