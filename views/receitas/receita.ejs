@@ -177,7 +177,7 @@
               <p><%= (ingrediente.gorduras * ingrediente.gramas / 100).toFixed(2) %></p> <!-- Cálculo de gorduras -->
             </div>
             <div class="col col-nut">
-              <p><%= (ingrediente.fibra * ingrediente.gramas / 100).toFixed(2) %></p> <!-- Cálculo de fibra -->
+              <p><%= (ingrediente.fibras * ingrediente.gramas / 100).toFixed(2) %></p> <!-- Cálculo de fibra -->
             </div>
             <div class="col col-nut">
               <p><%= (ingrediente.calorias * ingrediente.gramas / 100).toFixed(2) %></p> <!-- Cálculo de calorias -->
@@ -191,7 +191,7 @@
       <div class="container text-center">
         <div class="row py-1 mt-1">
           <div class="col-2">
-            Totals
+            TOTAL
           </div>
           <div class="col-10">
             <div class="container table-footer">
@@ -225,50 +225,38 @@
 <script>
   // Função para calcular os totais
   function calcularTotais() {
-    // Crie variáveis para armazenar os totais
-    let totalGramas = 0;
-    let totalCarboidratos = 0;
-    let totalProteinas = 0;
-    let totalGorduras = 0;
-    let totalFibra = 0;
-    let totalCalorias = 0;
-  
-    // Selecione todas as linhas da tabela, exceto a de cabeçalho e rodapé
-    const rows = document.querySelectorAll('.table-row');
-  
-    // Iterar pelas linhas e somar os valores
-    rows.forEach(row => {
-      const cols = row.querySelectorAll('.col-nut');
-      
-      // Converte os valores para números de ponto flutuante, com verificação para valores ausentes
-      const gramas = parseFloat(cols[0].textContent) || 0;
-      const carboidratos = parseFloat(cols[1].textContent) || 0;
-      const proteinas = parseFloat(cols[2].textContent) || 0;
-      const gorduras = parseFloat(cols[3].textContent) || 0;
-      const fibra = parseFloat(cols[4].textContent) || 0;
-      const calorias = parseFloat(cols[5].textContent) || 0;
-      
-      // Somar os valores para os totais, considerando a quantidade de gramas
-      totalGramas += gramas;
-      totalCarboidratos += (carboidratos * gramas) / 100;  // Calcula o carboidrato baseado em gramas
-      totalProteinas += (proteinas * gramas) / 100;  // Calcula a proteína baseado em gramas
-      totalGorduras += (gorduras * gramas) / 100;  // Calcula a gordura baseada em gramas
-      totalFibra += (fibra * gramas) / 100;  // Calcula a fibra baseada em gramas
-      totalCalorias += (calorias * gramas) / 100;  // Calcula as calorias baseadas em gramas
-    });
-  
-    // Atualizar os totais na linha de rodapé
-    document.querySelector('.table-footer .row .col-nut:nth-child(1) p').textContent = totalGramas.toFixed(2) + 'g';
-    document.querySelector('.table-footer .row .col-nut:nth-child(2) p').textContent = totalCarboidratos.toFixed(2) + 'g';
-    document.querySelector('.table-footer .row .col-nut:nth-child(3) p').textContent = totalProteinas.toFixed(2) + 'g';
-    document.querySelector('.table-footer .row .col-nut:nth-child(4) p').textContent = totalGorduras.toFixed(2) + 'g';
-    document.querySelector('.table-footer .row .col-nut:nth-child(5) p').textContent = totalFibra.toFixed(2) + 'g';
-    document.querySelector('.table-footer .row .col-nut:nth-child(6) p').textContent = totalCalorias.toFixed(2) + 'kcal';
-  }
-  
-  // Chame a função para calcular os totais assim que a página for carregada
-  window.onload = function() {
-    calcularTotais();
-  };
+  let totalGramas = 0;
+  let totalCarboidratos = 0;
+  let totalProteinas = 0;
+  let totalGorduras = 0;
+  let totalFibra = 0;
+  let totalCalorias = 0;
+
+  // Selecione todas as linhas da tabela de ingredientes
+  const rows = document.querySelectorAll('.table-row');
+
+  rows.forEach(row => {
+    const cols = row.querySelectorAll('.col-nut');
+
+    // Converte os valores para números de ponto flutuante
+    totalGramas += parseFloat(cols[0].textContent) || 0;
+    totalCarboidratos += parseFloat(cols[1].textContent) || 0;
+    totalProteinas += parseFloat(cols[2].textContent) || 0;
+    totalGorduras += parseFloat(cols[3].textContent) || 0;
+    totalFibra += parseFloat(cols[4].textContent) || 0;
+    totalCalorias += parseFloat(cols[5].textContent) || 0;
+  });
+
+  // Atualizar os totais na linha de rodapé
+  document.querySelector('.table-footer .row .col-nut:nth-child(1) p').textContent = totalGramas.toFixed(2) + 'g';
+  document.querySelector('.table-footer .row .col-nut:nth-child(2) p').textContent = totalCarboidratos.toFixed(2) + 'g';
+  document.querySelector('.table-footer .row .col-nut:nth-child(3) p').textContent = totalProteinas.toFixed(2) + 'g';
+  document.querySelector('.table-footer .row .col-nut:nth-child(4) p').textContent = totalGorduras.toFixed(2) + 'g';
+  document.querySelector('.table-footer .row .col-nut:nth-child(5) p').textContent = totalFibra.toFixed(2) + 'g';
+  document.querySelector('.table-footer .row .col-nut:nth-child(6) p').textContent = totalCalorias.toFixed(2) + 'kcal';
+}
+
+// Chama a função ao carregar a página
+window.onload = calcularTotais;
   </script>
   
