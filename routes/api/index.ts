@@ -12,12 +12,12 @@ class ApiRoute {
                 let lista;
                 if (recId) {
                     lista = await sql.query(`
-                        SELECT r.recId, r.recNome, r.recDesc, r.recImg
+                        SELECT r.recId, r.recNome, r.recDesc
                         FROM receita r
                         WHERE r.recId = ?`, [recId]);
                 } else if (nome) {
                     lista = await sql.query(`
-                        SELECT r.recId, r.recNome, r.recDesc, r.recImg
+                        SELECT r.recId, r.recNome, r.recDesc
                         FROM receita r
                         WHERE r.recNome LIKE ?`, [`%${nome}%`]);
                 } else {
@@ -29,10 +29,9 @@ class ApiRoute {
                     const categorias = await this.buscarCategorias(req, res, { recId: recId }, false);
 
                     receitas.push({
-                        id: item.redId,
+                        id: item.recId,
                         nome: item.recNome,
                         descricao: item.recDesc,
-                        img: item.recImg,
                         exclusao: item.exclusao,
                         ingredientes: ingredientes,
                         categorias: categorias

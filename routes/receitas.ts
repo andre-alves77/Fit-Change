@@ -13,7 +13,7 @@ class ReceitasRoute {
 		try {
 			await app.sql.connect(async (sql) => {
 				const query: any = await sql.query(`
-					SELECT r.recId, r.recNome, r.recDesc, r.recImg
+					SELECT r.recId, r.recNome, r.recDesc
 					FROM receita r
 					LEFT JOIN item_categoria ic ON r.recId = ic.recId
 					LEFT JOIN categoriaReceita c ON ic.catId = c.id
@@ -115,14 +115,14 @@ class ReceitasRoute {
 		// Conectar ao banco de dados e inserir a receita
 		try {
 			await app.sql.connect(async (sql) => {
+				await sql.beginTransaction();
+
 				// Inserir a receita na tabela 'receita' sem a imagem ainda
 				const result: any = await sql.query(`
 					INSERT INTO receita (usuId, recNome, recDesc) 
 					VALUES (?, ?, ?)`,
 					[1, receita.nome, receita.descricao]
 				);
-
-				console.log("Resultado da inserção de receita:", result);
 
 				let recId: number | undefined;
 				if (result && result.insertId) {
@@ -132,20 +132,6 @@ class ReceitasRoute {
 					res.status(500).json({ error: "Falha ao obter o ID da receita." });
 					return;
 				}
-
-				// Definindo o caminho do arquivo com o ID da receita
-				const filePath = `/public/img/receitas/${recId}-${imagem.originalname}`;
-
-				// Salvar a imagem com o novo nome baseado no ID da receita
-				await app.fileSystem.saveUploadedFile(filePath, imagem);
-
-				// Atualizar a receita no banco de dados com o caminho da imagem
-				await sql.query(`
-					UPDATE receita SET recImg = ? WHERE recId = ?`,
-					[`${recId}-recImg`, recId]
-				);
-
-
 
 				try {
 					// Verifique se 'ingredientes' é uma string e converta para um array de objetos
@@ -186,6 +172,14 @@ class ReceitasRoute {
 						[recId, catId]
 					);
 				}
+
+				// Definindo o caminho do arquivo com o ID da receita
+				const filePath = `/public/img/receitas/${recId}.jpeg`;
+
+				// Salvar a imagem com o novo nome baseado no ID da receita
+				await app.fileSystem.saveUploadedFile(filePath, imagem);
+
+				await sql.commit();
 
 				res.json({ success: true, message: "Receita criada com sucesso!" });
 			});

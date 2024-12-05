@@ -131,140 +131,155 @@
         background-color: #0056b3;
     }
 </style>
-
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <h1 class="h1-receita">Criar Receita</h1>
         </div>
-        
         <div class="col-12">
             <div class="container">
-                <div class="col-8">
-                    <div class="row mb-3">
-                        <div class="col-12">
-                            <label for="nome" class="form-label">Nome da Receita</label>
-                            <input id="nome" maxlength="60" class="form-control" placeholder="Digite o nome da receita">
-                        </div>
+                <div class="row">
+                    <div class="col-auto">
+                        <button class="btn btn-primary mt-2 mb-2 flex-fill" type="button" data-bs-toggle="modal"
+                            data-bs-target="#myModal">Adicionar Ingredientes</button>
                     </div>
+<div class="col">
+</div>
                 </div>
             </div>
         </div>
 
-        <!-- Área de Ingredientes -->
-        <div class="col-12 my-4">
-            <div class="table-scroll p-3 ">
-                <h4 class="text-center mb-3">Ingredientes</h4>
-                <div class="container my-4 table-container">
-                    <div class="row table-header py-2 justify-content-center align-items-center">
-                        <div class="col-1 text-center">Remover</div>
-                        <div class="col-2 text-center">Ingrediente</div>
-                        <div class="col col-nut">Quantidade</div>
-                        <div class="col col-nut">Carboidratos</div>
-                        <div class="col col-nut">Proteínas</div>
-                        <div class="col col-nut">Gorduras</div>
-                        <div class="col col-nut">Calorias</div>
-                        <div class="col col-nut">Fibras</div>
+        <div class="table-scroll">
+            <div class="container my-4 table-container">
+                <div class="row table-header py-2 justify-content-center align-items-center">
+                    <div class="col-1 text-center">
+                        <p>Remover</p>
                     </div>
-                    <div id="ingredientesTabela"></div>
-                    <div class="row table-row justify-content-center align-items-center p-3 bg-danger">                     
-
-
-                            <div class="col-3 text-center"> <span>TOTAL</span></div>
-                            <div class="col col-nut"> <span id="totalGramas">0</span></div>
-                            <div class="col col-nut"> <span id="totalCarboidratos">0</span>g</div>
-                            <div class="col col-nut"> <span id="totalProteinas">0</span>g</div>
-                            <div class="col col-nut"> <span id="totalGorduras">0</span>g</div>
-                            <div class="col col-nut"> <span id="totalCalorias">0</span>kcal</div>
-                            <div class="col col-nut"> <span id="totalFibras">0</span>g</div>
+                    <div class="col-2 text-center">
+                        <p>Ingrediente</p>
+                    </div>
+                    <div class="col col-nut">
+                        <p>Gramas</p>
+                    </div>
+                    <div class="col col-nut">
+                        <p>Carboidratos</p>
+                    </div>
+                    <div class="col col-nut">
+                        <p>Proteínas</p>
+                    </div>
+                    <div class="col col-nut">
+                        <p>Gorduras</p>
+                    </div>
+                    <div class="col col-nut">
+                        <p>Calorias</p>
+                    </div>
+                    <div class="col col-nut">
+                        <p>Fibras</p>
                     </div>
                 </div>
-
-                <!-- Botão de Adicionar Ingredientes destacado -->
-                <div class="text-center mt-3">
-                    <button class="btn btn-primary btn-lg" type="button" data-bs-toggle="modal" data-bs-target="#myModal">
-                        + Adicionar Ingrediente
-                    </button>
-                </div>
+                <div id="ingredientesTabela"></div>
             </div>
         </div>
 
+        <div class="container text-center mt-4">
+            <h5>Totais</h5>
+            <p>Gramas: <span id="totalGramas">0</span></p>
+            <p>Carboidratos: <span id="totalCarboidratos">0</span>g</p>
+            <p>Proteínas: <span id="totalProteinas">0</span>g</p>
+            <p>Gorduras: <span id="totalGorduras">0</span>g</p>
+            <p>Calorias: <span id="totalCalorias">0</span>kcal</p>
+            <p>Fibras: <span id="totalFibras">0</span>g</p>
+        </div>
 
-        <!-- Upload da imagem e descrição -->
-        <div class="col-8 container mt-4">
-            <label for="receitaImagem" class="form-label mt-3">Imagem da Receita</label>
-            <input type="file" id="receitaImagem" class="form-control" accept="image/*">
+        <div class="col-8 container">
+            <div class="row">
+                <div class="col-12">
+                    <label for="nome">Nome da Receita</label>
+                    <input id="nome" maxlength="60" class="form-control" rows="4" >
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <label for="receitaImagem" class="mt-3">Imagem da Receita</label>
+                <input type="file" id="receitaImagem" class="form-control" accept="image/*">
+            </div>
             
-            <label for="categorias-container" class="form-label mt-3">Selecione as categorias</label>
-            <div id="categorias-container"></div>
-
-            <label for="descricao" class="form-label mt-3">Descrição da Receita</label>
-            <textarea id="descricao" class="form-control" rows="4" placeholder="Descreva a receita"></textarea>
+            <div class="col-12 container">
+                <label for="categorias-container" class="mt-3">Selecione as categorias</label>
+                <div id="categorias-container"></div>
+            </div>
+            <div class="col-12 container">
+                <div class="row">
+                    <div class="col-12 description-area">
+                        <label for="descricao mt-3">Descrição da Receita</label>
+                        <textarea id="descricao" class="form-control" rows="4"></textarea>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <!-- Botão de criação da receita -->
         <div class="col-12 text-center">
-            <button class="btn btn-success btn-lg mt-5" id="btnCriarReceita">Criar Receita</button>
+            <button class="btn btn-success mt-5" id="btnCriarReceita">Criar Receita</button>
         </div>
     </div>
 </div>
 
 
-    <script>
-        const NutrienteUnidade = {
-            energiaKcal: "kcal",
-            energiaKj: "kJ",
-            proteina: "g",
-            lipideos: "g",
-            colesterol: "mg",
-            carboidratos: "g",
-            fibraAlimentar: "g"
-        };
+<script>
+    const NutrienteUnidade = {
+        energiaKcal: "kcal",
+        energiaKj: "kJ",
+        proteina: "g",
+        lipideos: "g",
+        colesterol: "mg",
+        carboidratos: "g",
+        fibraAlimentar: "g"
+    };
 
-        let ingredientesSelecionados = [];
+    let ingredientesSelecionados = [];
 
-        function adicionarIngrediente(ingrediente) {
-            ingredientesSelecionados.push(ingrediente);
-            atualizarTabela();
-        }
+    function adicionarIngrediente(ingrediente) {
+        ingredientesSelecionados.push(ingrediente);
+        atualizarTabela();
+    }
 
-        function removerIngrediente(index) {
-            ingredientesSelecionados.splice(index, 1);
-            atualizarTabela();
-        }
+    function removerIngrediente(index) {
+        ingredientesSelecionados.splice(index, 1);
+        atualizarTabela();
+    }
 
-        function atualizarGramas(index, novaQuantidade) {
-            novaQuantidade = parseFloat(novaQuantidade);
+    function atualizarGramas(index, novaQuantidade) {
+    novaQuantidade = parseFloat(novaQuantidade);
 
-            if (isNaN(novaQuantidade) || novaQuantidade <= 0) {
-                alert('Insira um valor válido para gramas.');
-                atualizarTabela();
-                return;
-            }
+    if (isNaN(novaQuantidade) || novaQuantidade <= 0) {
+        alert('Insira um valor válido para gramas.');
+        atualizarTabela(); 
+        return;
+    }
 
-            let ingrediente = ingredientesSelecionados[index];
-            let fator = novaQuantidade / ingrediente.gramas;
+    let ingrediente = ingredientesSelecionados[index];
+    let fator = novaQuantidade / ingrediente.gramas;  
 
-            ingrediente.gramas = parseFloat(novaQuantidade.toFixed(2));
-            ingrediente.carboidratos = parseFloat((ingrediente.carboidratos * fator).toFixed(2));
-            ingrediente.proteinas = parseFloat((ingrediente.proteinas * fator).toFixed(2));
-            ingrediente.gorduras = parseFloat((ingrediente.gorduras * fator).toFixed(2));
-            ingrediente.calorias = parseFloat((ingrediente.calorias * fator).toFixed(2));
-            ingrediente.fibras = parseFloat((ingrediente.fibras * fator).toFixed(2));
+    ingrediente.gramas = parseFloat(novaQuantidade.toFixed(2));
+    ingrediente.carboidratos = parseFloat((ingrediente.carboidratos * fator).toFixed(2));
+    ingrediente.proteinas = parseFloat((ingrediente.proteinas * fator).toFixed(2));
+    ingrediente.gorduras = parseFloat((ingrediente.gorduras * fator).toFixed(2));
+    ingrediente.calorias = parseFloat((ingrediente.calorias * fator).toFixed(2));
+    ingrediente.fibras = parseFloat((ingrediente.fibras * fator).toFixed(2));
 
-            atualizarTabela();
-        }
-
-
+    atualizarTabela();  
+}
 
 
-        function atualizarTabela() {
-            let tabelaHTML = '';
-            let totais = { gramas: 0, carboidratos: 0, proteinas: 0, gorduras: 0, calorias: 0, fibras: 0 };
+    
 
-            ingredientesSelecionados.forEach((ingrediente, index) => {
-                console.log(ingrediente)
-                tabelaHTML += `
+    function atualizarTabela() {
+        let tabelaHTML = '';
+        let totais = { gramas: 0, carboidratos: 0, proteinas: 0, gorduras: 0, calorias: 0, fibras: 0 };
+
+        ingredientesSelecionados.forEach((ingrediente, index) => {
+            console.log(ingrediente)
+            tabelaHTML += `
             <div class="row table-row py-2 justify-content-center align-items-center">
                 <div class="col-1 text-center">
                     <button class="btn btn-danger btn-sm" onclick="removerIngrediente(${index})">X</button>
@@ -280,138 +295,133 @@
             </div>
         `;
 
-                totais.gramas += ingrediente.gramas;
-                totais.carboidratos += ingrediente.carboidratos;
-                totais.proteinas += ingrediente.proteinas;
-                totais.gorduras += ingrediente.gorduras;
-                totais.calorias += ingrediente.calorias;
-                totais.fibras += ingrediente.fibras;
-            });
+            totais.gramas += ingrediente.gramas;
+            totais.carboidratos += ingrediente.carboidratos;
+            totais.proteinas += ingrediente.proteinas;
+            totais.gorduras += ingrediente.gorduras;
+            totais.calorias += ingrediente.calorias;
+            totais.fibras += ingrediente.fibras;
+        });
 
-            document.getElementById('ingredientesTabela').innerHTML = tabelaHTML;
+        document.getElementById('ingredientesTabela').innerHTML = tabelaHTML;
 
-            document.getElementById('totalGramas').innerText = totais.gramas;
-            document.getElementById('totalCarboidratos').innerText = totais.carboidratos.toFixed(2);
-            document.getElementById('totalProteinas').innerText = totais.proteinas.toFixed(2);
-            document.getElementById('totalGorduras').innerText = totais.gorduras.toFixed(2);
-            document.getElementById('totalCalorias').innerText = totais.calorias.toFixed(2);
-            document.getElementById('totalFibras').innerText = totais.fibras.toFixed(2);
+        document.getElementById('totalGramas').innerText = totais.gramas;
+        document.getElementById('totalCarboidratos').innerText = totais.carboidratos.toFixed(2);
+        document.getElementById('totalProteinas').innerText = totais.proteinas.toFixed(2);
+        document.getElementById('totalGorduras').innerText = totais.gorduras.toFixed(2);
+        document.getElementById('totalCalorias').innerText = totais.calorias.toFixed(2);
+        document.getElementById('totalFibras').innerText = totais.fibras.toFixed(2);
+    }
+
+
+
+
+    async function buscarCategorias() {
+    try {
+        const response = await fetch('/api/buscarCategorias'); // Ajuste a URL conforme a rota definida no seu back-end
+        const categorias = await response.json();
+        renderizarCategorias(categorias); // Chama a função para renderizar os checkboxes
+    } catch (error) {
+        console.error('Erro ao buscar categorias:', error);
+    }
+}
+
+// Função para renderizar checkboxes dinamicamente
+function renderizarCategorias(categorias) {
+    const container = document.getElementById('categorias-container');
+    container.innerHTML = ''; // Limpa o contêiner antes de adicionar os novos elementos
+
+    categorias.forEach(categoria => {
+        const div = document.createElement('div');
+        div.className = 'form-check'; // Classe Bootstrap
+
+        const checkbox = document.createElement('input');
+        checkbox.className = 'form-check-input';
+        checkbox.type = 'checkbox';
+        checkbox.id = `categoria-${categoria.id}`;
+        checkbox.name = 'categorias';
+        checkbox.value = categoria.id;
+
+        const label = document.createElement('label');
+        label.className = 'form-check-label';
+        label.htmlFor = `categoria-${categoria.id}`;
+        label.innerText = categoria.nome;
+
+        div.appendChild(checkbox);
+        div.appendChild(label);
+        container.appendChild(div);
+    });
+}
+
+document.addEventListener('DOMContentLoaded', buscarCategorias);
+
+
+let isButtonClicked = false;
+
+async function criarReceita() {
+    if (isButtonClicked) {
+        return;
+    }
+    isButtonClicked = true;
+
+    // Coleta os valores dos campos
+    const nome = document.getElementById('nome').value;
+    const descricao = document.getElementById('descricao').value;
+    const ingredientes = ingredientesSelecionados;
+    const categorias = [];
+    const imagem = document.getElementById('receitaImagem').files[0];
+
+    // Coleta as categorias selecionadas
+    const categoriaElements = document.querySelectorAll('input[name="categorias"]:checked');
+    categoriaElements.forEach((checkbox) => {
+        categorias.push(checkbox.value);
+    });
+
+    // Valida se todos os campos estão preenchidos
+    if (!nome || !descricao || ingredientes.length === 0 || categorias.length === 0 || !imagem) {
+        alert("Por favor, preencha todos os campos necessários.");
+        isButtonClicked = false;
+        return;
+    }
+
+    // Verifica se a imagem tem o formato correto (por exemplo, jpg, png, jpeg)
+    const validImageTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+    if (!validImageTypes.includes(imagem.type)) {
+        alert("Por favor, envie uma imagem válida (jpg, jpeg ou png).");
+        isButtonClicked = false;
+        return;
+    }
+
+    // Cria o FormData para enviar com a imagem
+    const formData = new FormData();
+    formData.append('nome', nome);
+    formData.append('descricao', descricao);
+    formData.append('ingredientes', JSON.stringify(ingredientes)); // Enviando a lista de ingredientes como JSON
+    formData.append('categoriasIds', JSON.stringify(categorias)); // Enviando a lista de categorias como JSON
+    formData.append('imagem', imagem);
+    console.log(formData)
+    // Envia a requisição para o backend
+    try {
+        const response = await fetch('/receitas/criarReceita', {
+            method: 'POST',
+            body: formData, // Envia o FormData diretamente, sem cabeçalhos 'Content-Type'
+        });
+
+        if (response.ok) {
+            alert("Receita criada com sucesso!");
+        } else {
+            alert("Erro ao criar a receita.");
         }
+    } catch (error) {
+        console.error('Erro ao enviar a receita:', error);
+        alert("Erro ao criar a receita.");
+    } finally {
+        isButtonClicked = false;
+    }
+}
+
+document.getElementById('btnCriarReceita').addEventListener('click', criarReceita);
 
 
-
-
-        async function buscarCategorias() {
-            try {
-                const response = await fetch('/api/buscarCategorias'); // Ajuste a URL conforme a rota definida no seu back-end
-                const categorias = await response.json();
-                renderizarCategorias(categorias); // Chama a função para renderizar os checkboxes
-            } catch (error) {
-                console.error('Erro ao buscar categorias:', error);
-            }
-        }
-
-        // Função para renderizar checkboxes dinamicamente
-        function renderizarCategorias(categorias) {
-            const container = document.getElementById('categorias-container');
-            container.innerHTML = ''; // Limpa o contêiner antes de adicionar os novos elementos
-
-            categorias.forEach(categoria => {
-                const div = document.createElement('div');
-                div.className = 'form-check'; // Classe Bootstrap
-
-                const checkbox = document.createElement('input');
-                checkbox.className = 'form-check-input';
-                checkbox.type = 'checkbox';
-                checkbox.id = `categoria-${categoria.id}`;
-                checkbox.name = 'categorias';
-                checkbox.value = categoria.id;
-
-                const label = document.createElement('label');
-                label.className = 'form-check-label';
-                label.htmlFor = `categoria-${categoria.id}`;
-                label.innerText = categoria.nome;
-
-                div.appendChild(checkbox);
-                div.appendChild(label);
-                container.appendChild(div);
-            });
-        }
-
-        document.addEventListener('DOMContentLoaded', buscarCategorias);
-
-
-        let isButtonClicked = false;
-
-        async function criarReceita() {
-            if (isButtonClicked) {
-                return;
-            }
-            isButtonClicked = true;
-
-            // Coleta os valores dos campos
-            const nome = document.getElementById('nome').value;
-            const descricao = document.getElementById('descricao').value;
-            const ingredientes = ingredientesSelecionados;
-            const categorias = [];
-            const imagem = document.getElementById('receitaImagem').files[0];
-
-            // Coleta as categorias selecionadas
-            const categoriaElements = document.querySelectorAll('input[name="categorias"]:checked');
-            categoriaElements.forEach((checkbox) => {
-                categorias.push(checkbox.value);
-            });
-
-            // Valida se todos os campos estão preenchidos
-            if (!nome || !descricao || ingredientes.length === 0 || categorias.length === 0 || !imagem) {
-                alert("Por favor, preencha todos os campos necessários.");
-                isButtonClicked = false;
-                return;
-            }
-
-            // Verifica se a imagem tem o formato correto (por exemplo, jpg, png, jpeg)
-            const validImageTypes = ['image/jpeg', 'image/png', 'image/jpg'];
-            if (!validImageTypes.includes(imagem.type)) {
-                alert("Por favor, envie uma imagem válida (jpg, jpeg ou png).");
-                isButtonClicked = false;
-                return;
-            }
-
-            // Cria o FormData para enviar com a imagem
-            const formData = new FormData();
-            formData.append('nome', nome);
-            formData.append('descricao', descricao);
-            formData.append('ingredientes', JSON.stringify(ingredientes)); // Enviando a lista de ingredientes como JSON
-            formData.append('categoriasIds', JSON.stringify(categorias)); // Enviando a lista de categorias como JSON
-            formData.append('imagem', imagem);
-            console.log(formData)
-            // Envia a requisição para o backend
-            try {
-                const response = await fetch('/receitas/criarReceita', {
-                    method: 'POST',
-                    body: formData, // Envia o FormData diretamente, sem cabeçalhos 'Content-Type'
-                });
-
-                if (response.ok) {
-                    alert("Receita criada com sucesso!");
-                } else {
-                    alert("Erro ao criar a receita.");
-                }
-            } catch (error) {
-                console.error('Erro ao enviar a receita:', error);
-                alert("Erro ao criar a receita.");
-            } finally {
-                isButtonClicked = false;
-            }
-        }
-
-        document.getElementById('btnCriarReceita').addEventListener('click', criarReceita);
-
-
-    </script>
-    <%- include("ingredientes_modal") %>
-
-
-
-
-    
+</script>
+<%- include("ingredientes_modal") %>
