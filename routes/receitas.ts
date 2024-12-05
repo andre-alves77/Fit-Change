@@ -2,6 +2,7 @@ import app = require("teem");
 import Usuario = require("../models/usuario");
 import Receita = require("../models/receita");
 import Ingrediente = require("../models/ingrediente");
+import ApiRoute = require("./api");
 
 app.multer
 class ReceitasRoute {
@@ -9,8 +10,33 @@ class ReceitasRoute {
 	private ingredientes: { id: number; name: string }[] = [];
 
 	public async index(req: app.Request, res: app.Response) {
-		res.render("receitas/index");
+		try {
+			await app.sql.connect(async (sql) => {
+				const query: any = await sql.query(`
+					SELECT r.recId, r.recNome, r.recDesc, r.recImg
+					FROM receita r
+					LEFT JOIN item_categoria ic ON r.recId = ic.recId
+					LEFT JOIN categoriaReceita c ON ic.catId = c.id
+					LIMIT 10
+				`);
+
+				if (query && query.length > 0) {
+					const opcoes = {
+						titulo: "Home",
+						receitas: query,  
+					};
+
+					res.render("receitas/index", opcoes);
+				} else {
+					res.status(404).json({ message: "Nenhuma receita encontrada." });
+				}
+			});
+		} catch (error) {
+			console.error("Erro ao carregar receitas:", error);
+			res.status(500).json({ message: "Erro ao carregar as receitas." });
+		}
 	}
+
 
 	public async criar(req: app.Request, res: app.Response) {
 		let opcoes = {
@@ -18,12 +44,29 @@ class ReceitasRoute {
 			ingredientes: this.ingredientes,
 		};
 
-
 		res.render("receitas/criar", opcoes);
 	}
 
 	public async receita(req: app.Request, res: app.Response) {
-		res.render("receitas/receita");
+		let apiRoute = new ApiRoute();
+		try {
+
+			const recId = req.query["recId"] as string;
+	
+			const receitas = await apiRoute.buscarReceitas(req, res, { recId: recId }, false); // Buscar receitas sem retornar em JSON
+	
+			if (receitas.length === 0) {
+				return res.status(404).send("Receita não encontrada");
+			}
+	
+			const receita = receitas[0]; 
+	
+			res.render("receitas/receita", {receita:receita});
+	
+		} catch (error) {
+			console.error("Erro ao buscar a receita:", error);
+			res.status(500).send("Erro ao carregar a receita.");
+		}
 	}
 
 
@@ -34,6 +77,11 @@ class ReceitasRoute {
 
 		res.json(this.ingredientes);
 	}
+
+
+
+
+
 
 	@app.http.post()
 	@app.route.formData()
@@ -86,7 +134,7 @@ class ReceitasRoute {
 				}
 
 				// Definindo o caminho do arquivo com o ID da receita
-				const filePath = `uploads/receitas/${recId}-${imagem.originalname}`;
+				const filePath = `/public/img/receitas/${recId}-${imagem.originalname}`;
 
 				// Salvar a imagem com o novo nome baseado no ID da receita
 				await app.fileSystem.saveUploadedFile(filePath, imagem);
@@ -94,7 +142,7 @@ class ReceitasRoute {
 				// Atualizar a receita no banco de dados com o caminho da imagem
 				await sql.query(`
 					UPDATE receita SET recImg = ? WHERE recId = ?`,
-					[filePath, recId]
+					[`${recId}-recImg`, recId]
 				);
 
 

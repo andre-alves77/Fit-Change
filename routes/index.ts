@@ -1,5 +1,6 @@
 ﻿import { request } from "http";
 import app = require("teem");
+import ApiRoute = require("./api");
 
 class IndexRoute {
 	public async index(req: app.Request, res: app.Response) {
@@ -14,9 +15,23 @@ class IndexRoute {
 		res.render("index/sobre", opcoes);
 	}
 
-		// essa rota deverá ser exluida pois o index de usuario logado é um e o index de usuario sem conta é outro
+	// essa rota deverá ser exluida pois o index de usuario logado é um e o index de usuario sem conta é outro
 	public async home(req: app.Request, res: app.Response) {
-		res.render("index/home");
+		let apiRoute = new ApiRoute();
+
+		try {
+			const receitas = await apiRoute.buscarReceitas(req, res, { recId: 17 }, false);
+
+			let opcoes = {
+				titulo: "Home",
+				receitas: receitas
+			};
+
+			res.render("index/home", opcoes);
+		} catch (error) {
+			console.error("Erro ao buscar receitas:", error);
+			res.status(500).send("Erro ao carregar a página.");
+		}
 	}
 
 	public async empresa(req: app.Request, res: app.Response) {
@@ -46,7 +61,7 @@ class IndexRoute {
 			valor: 100
 		};
 
-		let produtosVindosDoBanco = [ produtoA, produtoB, produtoC ];
+		let produtosVindosDoBanco = [produtoA, produtoB, produtoC];
 
 		let opcoes = {
 			titulo: "Listagem de Produtos",
@@ -56,14 +71,14 @@ class IndexRoute {
 
 		res.render("index/produtos", opcoes);
 	}
-	
+
 	public async teste(req: app.Request, res: app.Response) {
 		let opcoes = {
 			titulo: "teste"
 		}
 
 		res.render("index/teste", opcoes);
-		
+
 	}
 
 	public async perfil(req: app.Request, res: app.Response) {

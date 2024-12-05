@@ -7,7 +7,7 @@ interface Receita {
     img: string;
     exclusao: string | null;
     ingredientes: Ingrediente[];
-    categoriasIds: number[];
+    categoriasIds: [];
 }
 
 export = Receita;
