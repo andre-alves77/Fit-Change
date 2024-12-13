@@ -4,12 +4,12 @@
     <a href="https://www.espm.br/cursos-de-graduacao/sistemas-de-informacao/"><img src="https://avatars.githubusercontent.com/u/49880458?s=200&v=4" alt="Sistemas de Informação ESPM" style="height: 200px; width: 200px;"/></a>
 </p>
 
-# Sistema de Controle de Dispensa
+# Sistema de Recomendação de Receitas com Valor Nutricional
 
 ### 2024-01
 
 ## Integrantes
-- [Nome](https://github.com/nome/)
+- [André Henrique](https://github.com/andre-alves77/)
 
 ## Descrição do Projeto
 
@@ -47,7 +47,7 @@ mysqlhost=localhost
 mysqlport=3306
 mysqluser=[USUÁRIO DO BANCO]
 mysqlpassword=[SENHA DO USUÁRIO DO BANCO]
-mysqldatabase=[NOME DO BANCO]
+mysqldatabase=fitchange
 ```
 
 - A pasta `alimentos` deve ser criada em `/public/img`
