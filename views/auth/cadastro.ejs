@@ -43,73 +43,122 @@
         margin-left: 30px;
     }
 </style>
-
 <div class="divGG">
     <h1 class="reg">Cadastro</h1>
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="login-container">
-                    <form>
+                    <form id="formCadastro">
                         <div class="mb-3">
                             <label for="inputEmail" class="form-label">E-mail</label>
-                            <input type="email" class="form-control form-control-lg" id="inputEmail"
-                                placeholder="email@email.com">
+                            <input type="email" class="form-control form-control-lg" id="inputEmail" placeholder="email@email.com" required>
                         </div>
                         <div class="mb-3">
-                            <label for="inputPass" class="form-label">Senha</label>
-                            <input type="password" class="form-control form-control-lg" id="inputPass"
-                                placeholder="Digite sua senha">
+                            <label for="inputSenha" class="form-label">Senha</label>
+                            <input type="password" class="form-control form-control-lg" id="inputSenha" placeholder="Digite sua senha" required>
                         </div>
                         <div class="mb-3">
-                            <label for="inputPass" class="form-label">Cidade</label>
-                            <input type="password" class="form-control form-control-lg" id="inputPass"
-                                placeholder="Digite sua cidade">
+                            <label for="inputCidade" class="form-label">Cidade</label>
+                            <input type="text" class="form-control form-control-lg" id="inputCidade" placeholder="Digite sua cidade" required>
                         </div>
                         <div class="mb-3">
-                            <label for="inputPass" class="form-label">Usuário</label>
-                            <input type="password" class="form-control form-control-lg" id="inputPass"
-                                placeholder="Digite seu nome de usuario">
+                            <label for="inputNomeUsuario" class="form-label">Nome de Usuário</label>
+                            <input type="text" class="form-control form-control-lg" id="inputNomeUsuario" placeholder="Digite seu nome de usuário" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputPesoKg" class="form-label">Peso (kg)</label>
+                            <input type="number" class="form-control form-control-lg" id="inputPesoKg" placeholder="Digite seu peso em kg" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputAlturaCm" class="form-label">Altura (cm)</label>
+                            <input type="number" class="form-control form-control-lg" id="inputAlturaCm" placeholder="Digite sua altura em cm" required>
                         </div>
                     </form>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="login-container">
-                    <form>
+                    <form id="formCadastro2">
                         <div class="mb-3">
-                            <label for="inputEmail" class="form-label">Data de nascimento</label>
-                            <input type="email" class="form-control form-control-lg" id="inputEmail"
-                                placeholder="informe sua data de nascimento">
+                            <label for="inputDataNascimento" class="form-label">Data de Nascimento</label>
+                            <input type="date" class="form-control form-control-lg" id="inputDataNascimento" required>
                         </div>
                         <div class="mb-3">
-                            <label for="inputEmail" class="form-label">Gênero</label>
-                            <input type="email" class="form-control form-control-lg" id="inputEmail"
-                                placeholder="informe seu genero">
+                            <label for="inputGenero" class="form-label">Gênero</label>
+                            <input type="text" class="form-control form-control-lg" id="inputGenero" placeholder="Informe seu gênero" required>
                         </div>
                         <div class="mb-3">
-                            <label for="inputEmail" class="form-label">Atividade Física</label>
-                            <input type="email" class="form-control form-control-lg" id="inputEmail"
-                                placeholder="digite sua atividade fisica">
+                            <label for="inputAtividadeFisica" class="form-label">Atividade Física</label>
+                            <input type="text" class="form-control form-control-lg" id="inputAtividadeFisica" placeholder="Digite sua atividade física" required>
                         </div>
                         <div class="mb-3">
-                            <label for="inputEmail" class="form-label">Objetivo da Alimentação</label>
-                            <input type="email" class="form-control form-control-lg" id="inputEmail"
-                                placeholder="digite seu objetivo da Alimentação">
+                            <label for="inputObjetivo" class="form-label">Objetivo da Alimentação</label>
+                            <input type="text" class="form-control form-control-lg" id="inputObjetivo" placeholder="Digite seu objetivo da alimentação" required>
                         </div>
                     </form>
                 </div>
             </div>
-            <div class="container">
-                 <input type="checkbox" id="terms" class="checkbox"> 
-                 <label for="terms">Eu aceito receber notificação no Email</label> 
-            </div>
-            <div class="container">
-                 <input type="checkbox" id="terms" class="checkbox"> 
-                 <label for="terms">Eu aceito os Termos de Serviço</label> 
-            </div>
-            <button type="submit" class="btn btn-primary btn-lg form-btn-entrar center">Cadastrar</button>
-           
+            <button type="submit" id="btnCadastrar" class="btn btn-primary btn-lg form-btn-entrar center">Cadastrar</button>
         </div>
     </div>
 </div>
+<script>
+    document.getElementById("btnCadastrar").addEventListener("click", async function (event) {
+    event.preventDefault();
+
+    let usuario = {
+        usuNome: document.getElementById("inputNomeUsuario").value.normalize().trim(),
+        usuEmail: document.getElementById("inputEmail").value.normalize().trim().toLowerCase(),
+        usuSenha: document.getElementById("inputSenha").value.normalize().trim(),
+        usuPesoKg: document.getElementById("inputPesoKg").value.normalize().trim(),
+        usuAlturaCm: document.getElementById("inputAlturaCm").value.normalize().trim(),
+        usuDtNasc: document.getElementById("inputDataNascimento").value.normalize().trim(),
+        usuSexo: document.getElementById("inputGenero").value.normalize().trim(),
+        usuCidade: document.getElementById("inputCidade").value.normalize().trim(),
+        usuObjetivo: document.getElementById("inputObjetivo").value.normalize().trim(),
+        usuAtividade: document.getElementById("inputAtividadeFisica").value.normalize().trim(),
+    };
+
+    let camposInvalidos = [];
+    for (const [campo, valor] of Object.entries(usuario)) {
+        if (!valor) {
+            camposInvalidos.push(campo);
+        }
+    }
+
+    if (camposInvalidos.length > 0) {
+        alert("Por favor, preencha todos os campos obrigatórios: " + camposInvalidos.join(", "));
+        return;
+    }
+
+    try {
+        const btnCadastrar = document.getElementById("btnCadastrar");
+        btnCadastrar.disabled = true;
+
+        const response = await fetch("/api/criarUsuario", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(usuario),
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+            alert("Usuário cadastrado com sucesso!");
+            document.getElementById("formCadastro").reset();
+            document.getElementById("formCadastro2").reset();
+        } else {
+            alert("Erro ao cadastrar usuário: " + result.error);
+        }
+    } catch (error) {
+        console.error("Erro ao enviar dados para o backend:", error);
+        alert("Erro ao cadastrar usuário. Tente novamente mais tarde.");
+    } finally {
+        document.getElementById("btnCadastrar").disabled = false;
+    }
+});
+
+</script>

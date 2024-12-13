@@ -30,20 +30,19 @@
             <div class="col-lg-6 col-md-8">
                 <div class="login-container">
                     <h1 class="h1-home">Entrar</h1>
-                    <form>
+                    <form action="/api/login" method="POST">
                         <div class="mb-3">
                             <label for="inputEmail" class="form-label">E-mail</label>
-                            <input type="email" class="form-control form-control-lg" id="inputEmail"
-                                placeholder="email@email.com">
+                            <input type="email" class="form-control form-control-lg" id="inputEmail" name="usuEmail"
+                                placeholder="email@email.com" required>
                         </div>
                         <div class="mb-3">
                             <label for="inputPass" class="form-label">Senha</label>
-                            <input type="password" class="form-control form-control-lg" id="inputPass"
-                                placeholder="Digite sua senha">
+                            <input type="password" class="form-control form-control-lg" id="inputPass" name="usuSenha"
+                                placeholder="Digite sua senha" required>
                         </div>
                         <button type="submit" class="btn btn-primary btn-lg form-btn-entrar">Entrar</button>
-                        <a href="/auth/cadastro" type="submit" class="btn btn-primary btn-lg form-btn-entrar">Cadastre-se</a>
-                       
+                        <a href="/auth/cadastro" class="btn btn-secondary btn-lg form-btn-entrar">Cadastre-se</a>
                     </form>
                 </div>
             </div>
@@ -53,7 +52,19 @@
 </div>
 
 <script>
-	
+    const form = document.querySelector("form");
 
-    
+    form.addEventListener("submit", function (event) {
+        let email = document.getElementById("inputEmail").value.normalize().trim();
+        let senha = document.getElementById("inputPass").value.normalize().trim();
+
+
+        document.getElementById("inputEmail").value = email;
+        document.getElementById("inputPass").value = senha;
+
+        if (!email || !senha) {
+            event.preventDefault();
+            alert("Por favor, preencha todos os campos corretamente.");
+        }
+    });
 </script>

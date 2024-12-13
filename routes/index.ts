@@ -20,7 +20,7 @@ class IndexRoute {
 		let apiRoute = new ApiRoute();
 
 		try {
-			const receitas = await apiRoute.buscarReceitas(req, res, { recId: 17 }, false);
+			const receitas = await apiRoute.buscarReceitas(req, res, false);
 
 			let opcoes = {
 				titulo: "Home",

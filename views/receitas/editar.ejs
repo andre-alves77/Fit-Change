@@ -1,0 +1,240 @@
+<style>
+    .h1-receita {
+        font-size: clamp(3rem, 4vw, 4rem);
+        line-height: 150%;
+    }
+
+    .img-receita {
+        max-width: 100%;
+        border-radius: 10%;
+    }
+
+    .table-container {
+        margin: auto;
+        min-width: 800px;
+        border-collapse: collapse;
+        background-color: white;
+        border: 1px solid black;
+    }
+
+    /* Container da tabela com rolagem */
+    .table-scroll {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        width: 100%;
+        scrollbar-width: thin;
+        /* Para Firefox */
+        scrollbar-color: transparent transparent;
+        /* Para Firefox */
+        margin-bottom: 20px;
+        /* Para evitar que o footer fique colado ao fim */
+    }
+
+    /* Esconde a barra de rolagem */
+    .table-scroll::-webkit-scrollbar {
+        height: 0;
+        width: 0;
+    }
+
+    /* Linha do footer */
+    .table-footer {
+        background-color: #f8d7da;
+        font-weight: normal;
+    }
+
+    .table-footer .row {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .table-footer .col {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* Caso você queira que a barra de rolagem apareça ao interagir */
+    .table-scroll:hover::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .table-scroll:hover::-webkit-scrollbar-thumb {
+        background: #888;
+    }
+
+    .table-row {
+        display: flex;
+        border-bottom: 1px solid black;
+    }
+
+    .table-header {
+        font-weight: normal;
+        border-bottom: 1px solid black;
+    }
+
+    .table-footer {
+        background-color: #f8d7da;
+        font-weight: normal;
+    }
+
+    .col-nut {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .col-nut p {
+        font-family: 'Archivo', sans-serif;
+        font-weight: 400;
+        margin: 7px 0 7px 0;
+        padding: 0;
+    }
+
+    .table-header p {
+        font-family: 'Archivo Black', sans-serif;
+        font-style: normal;
+        margin: 7px 0 7px 0;
+        padding: 0;
+    }
+
+    .col-ing {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .text p {
+        font-family: 'Archivo', sans-serif;
+        font-style: normal;
+    }
+
+    .description-area {
+        margin-top: 20px;
+    }
+
+    .create-recipe-btn {
+        margin-top: 30px;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 1rem;
+        cursor: pointer;
+    }
+
+    .create-recipe-btn:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 ">
+            <h1 class="h1-receita">Editar Receita: <%= receita.nome %>
+            </h1>
+        </div>
+
+        <div class="col-md-3 mb-1 ">
+            <img src="/public/img/receitas/<%= receita.id %>.jpeg" class="img-receita" alt="<%= receita.nome %>">
+        </div>
+
+        <div class="col-md-9">
+            <label for="nomeReceita" class="form-label">Nome da Receita</label>
+            <input id="nomeReceita" name="nomeReceita" class="form-control" value="<%= receita.nome %>">
+
+            <label for="descricaoReceita" class="form-label mt-3">Descrição</label>
+            <textarea id="descricaoReceita" name="descricaoReceita" class="form-control"
+                rows="4"><%= receita.descricao %></textarea>
+        </div>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col-auto">
+                <h4>Ingredientes</h4>
+            </div>
+            <div class="col"></div>
+        </div>
+        <div class="row">
+            <div class="col-12 mt-4">
+                <div class="table-scroll">
+                    <div class="container table-container">
+                        <div class="row table-header py-2 justify-content-center align-items-center">
+                            <div class="col col-ing">Ingrediente</div>
+                            <div class="col col-nut">Gramas</div>
+                        </div>
+
+                        <% receita.ingredientes.forEach(function(ingrediente, index) { %>
+                            <div class="row table-row py-2">
+                                <div class="col col-ing">
+                                    <p>
+                                        <%= ingrediente.nome %>
+                                    </p>
+                                </div>
+                                <div class="col col-nut">
+                                    <input type="number" class="form-control" name="ingredientes[<%= index %>][gramas]"
+                                        value="<%= ingrediente.gramas %>">
+                                    <input type="hidden" name="ingredientes[<%= index %>][id]"
+                                        value="<%= ingrediente.id %>">
+                                </div>
+                            </div>
+                            <% }); %>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 mt-4">
+                <button id="btnSalvarReceita" class="btn btn-success btn-lg">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('btnSalvarReceita').addEventListener('click', async () => {
+            const formData = new FormData();
+            formData.append('recId', '<%= receita.id %>');
+            formData.append('recNome', document.getElementById('nomeReceita').value);
+            formData.append('recDesc', document.getElementById('descricaoReceita').value);
+
+            // Coletando ingredientes
+            const ingredientes = [];
+            document.querySelectorAll('.table-row').forEach(row => {
+                const gramasInput = row.querySelector('input[name^="ingredientes"][name$="[gramas]"]');
+                const idInput = row.querySelector('input[name^="ingredientes"][name$="[id]"]');
+                ingredientes.push({
+                    id: idInput.value,
+                    gramas: gramasInput.value,
+                });
+            });
+            formData.append('ingredientes', JSON.stringify(ingredientes));
+
+            // Coletando categorias (supondo que há um campo de categorias no formulário)
+            const categorias = [];
+            document.querySelectorAll('input[name="categorias[]"]:checked').forEach(checkbox => {
+                categorias.push(checkbox.value);
+            });
+            formData.append('categoriasIds', JSON.stringify(categorias));
+
+            try {
+                const response = await fetch('/api/editarReceita?recId=<%= receita.id %>', {
+                    method: 'PUT',
+                    body: formData,
+                });
+
+                if (response.ok) {
+                    alert('Receita salva com sucesso!');
+                    window.location.href = `/receitas/receita?recId=<%= receita.id %>`;
+                } else {
+                    alert('Erro ao salvar a receita.');
+                }
+            } catch (error) {
+                console.error('Erro ao salvar a receita:', error);
+                alert('Erro ao salvar a receita.');
+            }
+        });
+
+    </script>
