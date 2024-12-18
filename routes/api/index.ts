@@ -32,8 +32,8 @@ class ApiRoute {
 
                 const receitas = [];
                 for (const item of lista) {
-                    const ingredientes = await this.buscarIngredientes(req, res, { recId: recId }, false);
-                    const categorias = await this.buscarCategorias(req, res, { recId: recId }, false);
+                    const ingredientes = await this.buscarIngredientes(req, res, { recId: item.recId }, false);
+                    const categorias = await this.buscarCategorias(req, res, { recId: item.recId }, false);
 
                     receitas.push({
                         id: item.recId,
